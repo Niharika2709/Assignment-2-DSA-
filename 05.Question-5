@@ -1,0 +1,69 @@
+5) Space required to store any two-dimensional array is 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜ƒ 𝑟𝑜𝑤𝑠 × 𝑛𝑢𝑚𝑏𝑒𝑟 𝑜ƒ 
+c𝑜𝑙𝑢𝑚𝑛𝑠. Assuming array is used to store elements of the following matrices, implement an 
+efficient way that reduces the space requirement.  
+(a) Diagonal Matrix.  
+(b) Tri-diagonal Matrix.  
+(c) Lower triangular Matrix.  
+(d) Upper triangular Matrix.  
+(e) Symmetric Matrix 
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Enter size of square matrix (n x n): ";
+    cin >> n;
+
+    // (a) Diagonal Matrix
+    int dia[n];
+    cout << "\nEnter elements of Diagonal Matrix:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> dia[i];  
+    }
+    cout << "Diagonal matrix: ";
+    for (int i = 0; i < n; i++) cout << dia[i] << " ";
+    cout << endl;
+
+    // (b) Tri-diagonal Matrix
+    int tr[3*n - 2]; 
+    cout << "\nEnter elements of Tri-diagonal Matrix:\n";
+    for (int i = 0; i < 3*n - 2; i++) {
+        cin >> tr[i];
+    }
+    cout << " Tri-diagonal: ";
+    for (int i = 0; i < 3*n - 2; i++) cout << tr[i] << " ";
+    cout << endl;
+
+    // (c) Lower triangular Matrix
+    int lower[n*(n+1)/2]; 
+    cout << "\nEnter elements of Lower Triangular Matrix:\n";
+    for (int i = 0; i < n*(n+1)/2; i++) {
+        cin >> lower[i];
+    }
+    cout << "Lower triangular: ";
+    for (int i = 0; i < n*(n+1)/2; i++) cout << lower[i] << " ";
+    cout << endl;
+
+    // (d) Upper triangular Matrix
+    int upper[n*(n+1)/2];
+    cout << "\nEnter elements of Upper Triangular Matrix:\n";
+    for (int i = 0; i < n*(n+1)/2; i++) {
+        cin >> upper[i];
+    }
+    cout << "Stored Upper triangular: ";
+    for (int i = 0; i < n*(n+1)/2; i++) cout << upper[i] << " ";
+    cout << endl;
+
+    // (e) Symmetric Matrix
+    int sym[n*(n+1)/2]; 
+    cout << "\nEnter elements of Symmetric Matrix (only lower half including diagonal):\n";
+    for (int i = 0; i < n*(n+1)/2; i++) {
+        cin >> sym[i];
+    }
+    cout << "Stored Symmetric: ";
+    for (int i = 0; i < n*(n+1)/2; i++) cout << sym[i] << " ";
+    cout << endl;
+
+    return 0;
+}
