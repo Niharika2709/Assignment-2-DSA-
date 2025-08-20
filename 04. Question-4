@@ -7,7 +7,6 @@
 
 (a)
 #include <iostream>
-#include <cstring>
 using namespace std;
 
 int main() {
@@ -17,9 +16,39 @@ int main() {
     cout << "Enter second string: ";
     cin.getline(string2, 100);
 
-    strcat(string1, string2);
+    int i = 0, j = 0;
+    while (string1[i] != '\0') i++;   
+    while (string2[j] != '\0') {
+        string1[i] = string2[j];
+        i++; 
+        j++;
+    }
+    string1[i] = '\0';
 
     cout << "Concatenated string: " << string1 << endl;
     return 0;
 }
+
+
+(b)
+#include <iostream>
+using namespace std;
+
+int main() {
+    char str[100];
+    cout << "Enter a string: ";
+    cin.getline(str, 100);
+
+    int n = 0;
+    while (str[n] != '\0')   
+        n++;
+
+    cout << "Reversed string: ";
+    for (int i = n - 1; i >= 0; i--)
+        cout << str[i];
+    cout << endl;
+
+    return 0;
+}
+
 
