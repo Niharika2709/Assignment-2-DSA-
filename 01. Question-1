@@ -1,0 +1,43 @@
+1) Implement the Binary search algorithm regarded as a fast search algorithm with run-time 
+complexity of Ο(log n) in comparison to the Linear Search.
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int arr[n];   
+    cout << " elements in sorted order:\n";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+  
+    int a;
+    cout << "Enter element to search: ";
+    cin >> a;
+
+    int l = 0, h = n - 1, m, found = -1;
+
+    while (l <= h) {
+        m = (l + h) / 2;
+
+        if (arr[m] == a) {
+            found = m;
+            break;
+        } else if (arr[m] < a) {
+            l = m + 1;
+        } else {
+            h = m - 1;
+        }
+    }
+
+    if (found != -1)
+        cout << "Element found at index " << found << endl;
+    else
+        cout << "Element not found." << endl;
+
+    return 0;
+}
