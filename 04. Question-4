@@ -109,3 +109,22 @@ int main() {
 }
 
 
+(e)
+#include <iostream>
+using namespace std;
+
+int main() {
+    string string;
+    cout << "Enter a string in uppercase: ";
+    cin >> string;
+
+    for (int i = 0; string[i] != '\0'; i++) {
+        if (string[i] >= 'A' && string[i] <= 'Z') {
+            string[i] = string[i] + 32; 
+        }
+    }
+
+    cout << "Lowercase string: " << string << endl;
+    return 0;
+}
+
