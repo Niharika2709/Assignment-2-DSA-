@@ -1,0 +1,78 @@
+6) Write a program to implement the following operations on a Sparse Matrix, assuming the 
+matrix is represented using a triplet.  
+(a) Transpose of a matrix.  
+(b) Addition of two matrices.  
+(c) Multiplication of two matrices.  
+
+#include <iostream>
+using namespace std;
+
+struct Term { int r, c, v; };
+
+class Sparse {
+public:
+    int row, col, term;
+    Term t[100];
+
+    void read() {
+        cout << "Enter rows cols non-zero: ";
+        cin >> row >> col >> term;
+        cout << "Enter row col value:\n";
+        for (int i = 0; i < term; i++) cin >> t[i].r >> t[i].c >> t[i].v;
+    }
+
+    void display() {
+        cout << "Row Col Val\n";
+        for (int i = 0; i < term; i++)
+            cout << t[i].r << "   " << t[i].c << "   " << t[i].v << endl;
+    }
+
+    Sparse transpose() {
+        Sparse s; s.row = col; s.col = row; s.term = term;
+        int k = 0;
+        for (int c = 0; c < col; c++)
+            for (int i = 0; i < term; i++)
+                if (t[i].c == c) s.t[k++] = {t[i].c, t[i].r, t[i].v};
+        return s;
+    }
+
+    Sparse add(Sparse b) {
+        Sparse s; s.row = row; s.col = col;
+        int i=0,j=0,k=0;
+        while (i<term && j<b.term) {
+            if (t[i].r==b.t[j].r && t[i].c==b.t[j].c) {
+                int val=t[i].v+b.t[j].v;
+                if(val) s.t[k++]={t[i].r,t[i].c,val}; i++; j++;
+            } else if (t[i].r<b.t[j].r || (t[i].r==b.t[j].r && t[i].c<b.t[j].c))
+                s.t[k++]=t[i++];
+            else s.t[k++]=b.t[j++];
+        }
+        while(i<term) s.t[k++]=t[i++];
+        while(j<b.term) s.t[k++]=b.t[j++];
+        s.term=k; return s;
+    }
+
+    Sparse multiply(Sparse b) {
+        Sparse res; res.row=row; res.col=b.col; res.term=0;
+        Sparse bt=b.transpose();
+        for(int i=0;i<term;i++)
+            for(int j=0;j<bt.term;j++)
+                if(t[i].c==bt.t[j].c){
+                    int r=t[i].r,c=bt.t[j].r,val=t[i].v*bt.t[j].v;
+                    bool f=false;
+                    for(int k=0;k<res.term;k++)
+                        if(res.t[k].r==r && res.t[k].c==c){res.t[k].v+=val;f=true;break;}
+                    if(!f) res.t[res.term++]={r,c,val};
+                }
+        return res;
+    }
+};
+
+int main() {
+    Sparse A,B,C;
+    cout<<"Matrix A:\n"; A.read(); A.display();
+    cout<<"\nTranspose of A:\n"; C=A.transpose(); C.display();
+    cout<<"\nMatrix B:\n"; B.read();
+    cout<<"\nA + B:\n"; C=A.add(B); C.display();
+    cout<<"\nA * B:\n"; C=A.multiply(B); C.display();
+}
